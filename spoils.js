@@ -6,7 +6,7 @@ function draw(){
   noStroke();
   fill(255,255,255);
   if(mouseIsPressed){
-    ellipse(mouseX,mouseY,50,50);
+    ellipse(mouseX,mouseY,dist(mouseX,mouseY,pmouseX,pmouseY),dist(mouseX,mouseY,pmouseX,pmouseY));
   }
 }
 function windowResized(){
