@@ -3,9 +3,9 @@ function setup(){
 }
 function draw(){
   background(0,0,0);
-  fill(0,0,0);
-  ellipse(mouseX,mouseY,10,10);
+  fill(255,255,255);
+  ellipse(mouseX,mouseY,50,50);
 }
 window.onresize = function(){
-  canvas.size(window.width,window.height);
+  canvas.size(window.innerWidth,window.innerHeight);
 }
