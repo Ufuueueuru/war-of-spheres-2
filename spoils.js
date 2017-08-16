@@ -6,6 +6,6 @@ function draw(){
   fill(255,255,255);
   ellipse(mouseX,mouseY,50,50);
 }
-window.onresize = function(){
-  canvas.size(window.innerWidth,window.innerHeight);
+function windowResized(){
+  resizeCanvas(windowWidth,windiwHeight);
 }
