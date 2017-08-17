@@ -1,5 +1,5 @@
 function setup(){
-  createCanvas(windowWidth, windowHeight/2);
+  createCanvas(windowWidth, windowHeight);
   background(0,0,0);
 }
 function draw(){
@@ -12,5 +12,5 @@ function draw(){
 }
 function windowResized(){
   background(0,0,0);
-  resizeCanvas(windowWidth, windowHeight/2);
+  resizeCanvas(windowWidth, windowHeight);
 }
