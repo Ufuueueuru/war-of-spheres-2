@@ -154,7 +154,7 @@ function Player(x,y,rotation,weapon,armor,rank,side,attack,life){
 function setup(){
 	createCanvas(windowWidth,windowHeight);
 	angleMode(radians);
-	socket = io.connect('http://localhost:3000');
+	socket = io.connect('http://ufuueueuru.github.io/spoils.com');
 	if(random(0,2) > 1){
 		player = new Player(random(world.x.low,world.x.high),random(world.y.low,world.y.high),0,"Wooden Sword",0,"soldier",1,false,100);
 	}else{
