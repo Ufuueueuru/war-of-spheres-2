@@ -11,5 +11,6 @@ function draw(){
   }
 }
 function windowResized(){
+  background(0,0,0);
   resizeCanvas(windowWidth, windowHeight/2);
 }
