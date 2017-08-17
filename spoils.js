@@ -5,7 +5,7 @@ function setup(){
 function draw(){
   noStroke();
   fill(255,255,255);
-  strokeWeight(constrain(50-dist(mouseX,mouseY,pmouseX,pmouseY,0,100)));
+  strokeWeight(constrain(10-dist(mouseX,mouseY,pmouseX,pmouseY,0,100)));
   if(mouseIsPressed){
     line(mouseX,mouseY,pmouseX,pmouseY);
   }
