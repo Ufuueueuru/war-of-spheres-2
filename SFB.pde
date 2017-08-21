@@ -9,7 +9,7 @@ int currentBall = 0;
 void setup() 
 {
 	// general setup
-	size (500,500);
+	size (800,1000);
 	smooth();
 }
 
