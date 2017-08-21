@@ -1,7 +1,4 @@
-
-/* removed the class block and any import statements */
-				
-// create an array of ball objects
+/* @pjs preload="file1.png","file2.png","file3.jgp"; */
 Ball [] theBalls = new Ball[100];
 
 // keep track of how many balls we have already created
