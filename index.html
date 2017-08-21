@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>SFB</title>
-		<script type="text/javascript" src="processing.js"></script>
+		<script src="processing.js"></script>
 		<style type="text/css">
 			pre {
 				background-color: #EEE;
@@ -56,7 +56,9 @@
 
 		<p>Here's a live example (click and hold your mouse to release some colored balls)</p>
 		
-		<canvas id="theCanvas" data-processing-sources="SFB.pde"></canvas>
+		<script type="text/processing" data-processing-target="processing-canvas" src="SFB.pde">
+		
+		<canvas id="processing-canvas"></canvas>
 		
 		<p>If you are planning on using external artwork you will need to upload your assets to your website along with your PDE source code file. Then add the following "preloader" directive at the top of your sketch as a comment - this will tell ProcessingJS to have the files available when your sketch begins running.</p>
 		
