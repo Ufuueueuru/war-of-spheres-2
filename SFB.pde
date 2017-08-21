@@ -16,7 +16,7 @@ void setup()
 void draw() 
 {
 	// clear background
-	background(255);
+	background(255,255,255);
 	
 	// if the user clicks we should create a ball
 	if (mousePressed)
