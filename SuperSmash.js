@@ -1070,7 +1070,7 @@ function draw() {
   line(0,0,0,500);
   line(0,500,900,500);
   line(900,500,900,0);
-  line(900,1,0,1);
+  line(900,5,0,5);
   strokeWeight(1);
   noStroke();
 }
