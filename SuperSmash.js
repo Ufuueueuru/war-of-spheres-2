@@ -1017,7 +1017,6 @@ function draw() {
               player[i].yVel -= player[i].damage / 2 * attack[u].launch;
               attack[u].time = 0;
               player[i].inv = 50;
-              println(player[i].xVel);
             }
           }else{
             if(player[i].x < attack[u].x + attack[u].w/2 && i !== attack[u].player){
@@ -1027,7 +1026,6 @@ function draw() {
                 player[i].yVel -= player[i].damage / 2 * attack[u].launch;
                 attack[u].time = 0;
                 player[i].inv = 50;
-                println(player[i].xVel);
               }
             }
           }
