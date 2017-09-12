@@ -1114,8 +1114,8 @@ function mouseClicked(){
     if(dist(mouseX,mouseY,100,350) < 50 || (mouseX > 100 && mouseX < 250 && mouseY > 300 && mouseY < 400)){
       menu = 2;
       choose = {
-  		place: true,
-  		one: {
+  	place: true,
+  	one: {
       	  x: 120,
     	  y: 380
         },
