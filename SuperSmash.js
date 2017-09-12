@@ -1065,14 +1065,14 @@ function draw() {
   /*if(keys[controls[0].up]){
     background(50,50,100);
   }*/
-  stroke(0,0,0);
+  /*stroke(0,0,0);
   strokeWeight(2);
   line(0,0,0,500);
   line(0,500,900,500);
   line(900,500,900,0);
   strokeWeight(1);
   line(900,0,0,0);
-  noStroke();
+  noStroke();*/
 }
 
 function mouseClicked(){
