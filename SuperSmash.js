@@ -1071,7 +1071,7 @@ function draw() {
   line(0,500,900,500);
   line(900,500,900,0);
   strokeWeight(1);
-  line(900,1,0,1);
+  line(900,0,0,0);
   noStroke();
 }
 
