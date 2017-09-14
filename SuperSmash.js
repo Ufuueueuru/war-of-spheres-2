@@ -1070,6 +1070,7 @@ function draw() {
       fill(50,50,50,230);
       textSize(70);
       text("Paused",450,200);
+      textSize(20);
       text("Exit",400,250);
       text("Unpause",500,250);
       if(dist(mouseX,mouseY,400,250) <= 25 && mouseIsPressed){
