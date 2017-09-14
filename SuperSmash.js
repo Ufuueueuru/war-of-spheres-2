@@ -14,7 +14,7 @@ var slideX = [0,0];
 var slideY = [0,0];
 var loading = 0;
 var picCount = 0;
-var paused = false;
+var pause = false;
 var keyCodes = [
   "",//0
   "",//1
