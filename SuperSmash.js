@@ -1137,11 +1137,76 @@ function mouseClicked(){
     }
     if(dist(mouseX,mouseY,100,350) < 50 || (mouseX > 100 && mouseX < 250 && mouseY > 300 && mouseY < 400)){
       menu = 2;
+      player = [
+        {
+          x: 0,
+          y: 0,
+          cpu: false,
+          damage: 0,
+          xVel: 0,
+          yVel: 0,
+          look: 0,//0: neither 1: up 2: down
+          dir: 1,//1: right 2: left
+          attacking: false,
+          inv: 0,
+          character: {
+            pic: undefined,
+
+          }
+        },
+        {
+          x: 0,
+          y: 0,
+          cpu: true,
+          damage: 0,
+          xVel: 0,
+          yVel: 0,
+          look: 0,
+          dir: 1,
+          attacking: false,
+          inv: 0,
+          character: {
+            pic: undefined,
+
+          }
+        },
+        {
+          x: 0,
+          y: 0,
+          cpu: true,
+          damage: 0,
+          xVel: 0,
+          yVel: 0,
+          look: 0,
+          dir: 1,
+          attacking: false,
+          inv: 0,
+          character: {
+            pic: undefined,
+
+          }
+        },
+        {
+          x: 0,
+          y: 0,
+          cpu: true,
+          damage: 0,
+          xVel: 0,
+          yVel: 0,
+          look: 0,
+          dir: 1,
+          attacking: false,
+          inv: 0,
+          character: {
+            pic: undefined,
+          }
+        },
+      ];
       choose = {
-  	place: true,
-  	one: {
-      	  x: 120,
-    	  y: 380
+        place: true,
+        one: {
+         x: 120,
+         y: 380
         },
         two: {
           x: 340,
