@@ -3,8 +3,8 @@ var apple = {//apple object
   y: floor(random(0,windowHeight/10)*10)
 }
 var snake = {//snake object
-  x: [0],
-  y: [0],
+  x: [100],
+  y: [100],
   xV: [10],
   yV: [0]
 };
