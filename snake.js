@@ -30,17 +30,17 @@ function draw() {
       rect(snake.x[i] + 4*(i/(snake.x.length)),snake.y[i] + 4*(i/(snake.x.length)),10 - 8*(i/(snake.x.length)),10 - 8*(i/(snake.x.length)));
       snake.x[i] += snake.xV[i];
       snake.y[i] += snake.yV[i];
-      for(var u = 0;u < snake.x.length;u ++){
-        if(snake.x[i] === snake.y[i]){
-          gameOver = true;
-        }
-      }
       if(i > 0){
         //if(!(snake.x[i] === snake.x[i-1] && snake.y[i] === snake.y[i-1])){
           snake.xV[i] = snake.xV[i-1];
           snake.yV[i] = snake.yV[i-1];
         //}
       }else{
+        for(var u = 0;u < snake.x.length;u ++){
+          if(snake.x[i] === snake.y[i]){
+            gameOver = true;
+          }
+        }
         if(snake.x[i] === apple.x && snake.y[i] === apple.y){
           for(var t = 0;t < 3;t ++){
             snake.x.push(snake.x[snake.x.length-1]);
@@ -86,7 +86,7 @@ function draw() {
     fill(255,255,255);
     textSize(100);
     textAlign(CENTER);
-    text("Game\nOver",windowWidth/2,windowHeight/2);
+    text("Game\nOver",windowWidth/2,windowHeight/2-80);
     textSize(50);
     text("Press enter\nto try again",windowWidth/2,windowHeight/2+80);
     if(keys[32]){
