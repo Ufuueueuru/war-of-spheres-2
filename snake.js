@@ -8,7 +8,7 @@ var snake = {//snake object
   xV: [10],
   yV: [0]
 };
-var lastKey;
+var lastKey = 0;
 var keys = [];
 var gameOver = false;
 
@@ -37,7 +37,7 @@ function draw() {
         //}
       }else{
         for(var u = 0;u < snake.x.length;u ++){
-          if(snake.x[i] === snake.y[i]){
+          if(snake.x[i] === snake.x[u] && snake.y[i] === snake.y[u] && i !== u){
             gameOver = true;
           }
         }
@@ -53,16 +53,16 @@ function draw() {
         }
       }
     }
-    if(keys[39]){
+    if(keys[39] && lastKey !== 37){
       lastKey = 39;
     }
-    if(keys[37]){
+    if(keys[37] && lastKey !== 39){
       lastKey = 37;
     }
-    if(keys[38]){
+    if(keys[38] && lastKey !== 40){
       lastKey = 38;
     }
-    if(keys[40]){
+    if(keys[40] && lastKey !== 38){
       lastKey = 40;
     }
     if(lastKey === 39){//right
@@ -88,9 +88,10 @@ function draw() {
     textAlign(CENTER);
     text("Game\nOver",windowWidth/2,windowHeight/2-80);
     textSize(50);
-    text("Press enter\nto try again",windowWidth/2,windowHeight/2+80);
+    text("Press space\nto try again",windowWidth/2,windowHeight/2+100);
     if(keys[32]){
       gameOver = false;
+      lastKey = 0;
       apple = {//apple object
         x: 0,
         y: 0
