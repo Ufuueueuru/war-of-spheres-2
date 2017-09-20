@@ -25,7 +25,7 @@ function draw() {
   rect(apple.x,apple.y,10,10);//apple
   fill(0,255,0);
   for(var i = snake.x.length-1;i >= 0;i --){
-    rect(snake.x[i] + 3*(i/(snake.x.length-1)),snake.y[i] + 3*(i/(snake.x.length-1)),10 - 3*(i/(snake.x.length-1)),10 - 3*(i/(snake.x.length-1)));
+    rect(snake.x[i] + 1.5*(i/(snake.x.length)),snake.y[i] + 1.5*(i/(snake.x.length)),10 - 3*(i/(snake.x.length)),10 - 3*(i/(snake.x.length)));
     snake.x[i] += snake.xV[i];
     snake.y[i] += snake.yV[i];
     if(i > 0){
@@ -35,6 +35,14 @@ function draw() {
       //}
     }else{
       if(snake.x[i] === apple.x && snake.y[i] === apple.y){
+        snake.x.push(snake.x[snake.x.length-1]);
+        snake.y.push(snake.y[snake.y.length-1]);
+        snake.xV.push(0);
+        snake.yV.push(0);
+        snake.x.push(snake.x[snake.x.length-1]);
+        snake.y.push(snake.y[snake.y.length-1]);
+        snake.xV.push(0);
+        snake.yV.push(0);
         snake.x.push(snake.x[snake.x.length-1]);
         snake.y.push(snake.y[snake.y.length-1]);
         snake.xV.push(0);
