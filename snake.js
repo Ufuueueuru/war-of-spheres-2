@@ -25,7 +25,7 @@ function draw() {
   rect(apple.x,apple.y,10,10);//apple
   fill(0,255,0);
   for(var i = snake.x.length-1;i >= 0;i --){
-    rect(snake.x[i],snake.y[i],10,10);
+    rect(snake.x[i] + (i/(snake.x.length-1)),snake.y[i] + (i/(snake.x.length-1)),10 - (i/(snake.x.length-1)),10 - (i/(snake.x.length-1)));
     snake.x[i] += snake.xV[i];
     snake.y[i] += snake.yV[i];
     if(i > 0){
