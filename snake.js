@@ -17,7 +17,10 @@ function setup() {
 
 function draw() {
   background(0, 0, 0);
+  noStroke();
+  fill(255,0,0);
   rect(apple.x,apple.y,10,10);//apple
+  fill(0,255,0);
   for(var i = 0;i < snake.x.length;i ++){
     rect(snake.x[i],snake.y[i],10,10);
     snake.x[i] += snake.xV[i];
