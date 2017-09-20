@@ -25,7 +25,7 @@ function draw() {
   rect(apple.x,apple.y,10,10);//apple
   fill(0,255,0);
   for(var i = snake.x.length-1;i >= 0;i --){
-    rect(snake.x[i] + (i/(snake.x.length-1)),snake.y[i] + (i/(snake.x.length-1)),10 - (i/(snake.x.length-1)),10 - (i/(snake.x.length-1)));
+    rect(snake.x[i] + 3*(i/(snake.x.length-1)),snake.y[i] + 3*(i/(snake.x.length-1)),10 - 3*(i/(snake.x.length-1)),10 - 3*(i/(snake.x.length-1)));
     snake.x[i] += snake.xV[i];
     snake.y[i] += snake.yV[i];
     if(i > 0){
@@ -39,6 +39,8 @@ function draw() {
         snake.y.push(snake.y[snake.y.length-1]);
         snake.xV.push(0);
         snake.yV.push(0);
+        apple.x = floor(random(0,windowWidth)/10)*10;
+        apple.y = round(random(0,windowHeight)/10)*10;
       }
     }
   }
