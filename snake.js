@@ -10,7 +10,7 @@ var snake = {//snake object
 };
 var lastKey;
 var keys = [];
-var gameover = false;
+var gameOver = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
