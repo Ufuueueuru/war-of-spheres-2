@@ -15,7 +15,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(15);
   apple.x = floor(random(0,windowWidth)/10)*10;
-  apple.y = round(random(0,windowHeight)/10)*10;
+  apple.y = floor(random(0,windowHeight)/10)*10;
 }
 
 function draw() {
@@ -40,7 +40,7 @@ function draw() {
         snake.xV.push(0);
         snake.yV.push(0);
         apple.x = floor(random(0,windowWidth)/10)*10;
-        apple.y = round(random(0,windowHeight)/10)*10;
+        apple.y = floor(random(0,windowHeight)/10)*10;
       }
     }
   }
