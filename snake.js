@@ -35,7 +35,7 @@ function draw() {
     frameRate(60);
   }
   if(gameMode === "demented"){
-    frameRate(floor(random(10,80)));
+    frameRate(floor(random(10,150)));
   }
   background(0, 0, 0);
   if(gameOver === false){
