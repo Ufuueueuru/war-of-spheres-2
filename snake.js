@@ -12,7 +12,7 @@ var lastKey = 0;
 var keys = [];
 var gameOver = false;
 var gameMode = "normal";
-var highScore = [0,0,0,0];
+var highScore = [0,0,0,0,0];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -33,6 +33,9 @@ function draw() {
   }
   if(gameMode === "INSANE" && frameRate() !== 60){
     frameRate(60);
+  }
+  if(gameMode === "demented"){
+    frameRate(floor(random(10,80)));
   }
   background(0, 0, 0);
   if(gameOver === false){
@@ -134,6 +137,15 @@ function draw() {
         highScore[3] = snake.x.length;
       }
     }
+    if(gameMode === "demented"){
+      fill(255,10,10);
+      text("High score: "+highScore[4],windowWidth/2,100);
+      fill(255,50,140);
+      text("High score: "+highScore[4],windowWidth/2+3,103);
+      if(highScore[4] < snake.x.length){
+        highScore[4] = snake.x.length;
+      }
+    }
     textSize(20);
     fill(255,255,255);
     textAlign(CENTER);
@@ -156,6 +168,9 @@ function draw() {
     if(keys[52]){
       gameMode = "INSANE";
     }
+    if(keys[53]){
+      gameMode = "demented";
+    }
     if(gameMode === "easy"){
       text("High score: "+highScore[0],windowWidth/2,100);
     }
@@ -168,6 +183,12 @@ function draw() {
     if(gameMode === "INSANE"){
       fill(255,10,10);
       text("High score: "+highScore[3],windowWidth/2,100);
+    }
+    if(gameMode === "demented"){
+      fill(255,10,10);
+      text("High score: "+highScore[4],windowWidth/2,100);
+      fill(255,50,140);
+      text("High score: "+highScore[4],windowWidth/2+3,103);
     }
     fill(255,255,255);
     text("Score: "+snake.x.length,windowWidth/2,130);
