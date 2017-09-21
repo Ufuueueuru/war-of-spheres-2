@@ -230,9 +230,9 @@ function windowResized() {
 
 function keyPressed(){
   keys[keyCode] = true;
-  hack = 0;
 }
 
 function keyReleased(){
   keys[keyCode] = false;
+  hack = 0;
 }
