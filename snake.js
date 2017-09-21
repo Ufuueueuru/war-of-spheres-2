@@ -82,15 +82,17 @@ function draw() {
     }
     if(keys[39] && lastKey !== 37){
       lastKey = 39;
+    }else{
+      if(keys[38] && lastKey !== 40){
+        lastKey = 38;
+      }
     }
     if(keys[37] && lastKey !== 39){
       lastKey = 37;
-    }
-    if(keys[38] && lastKey !== 40){
-      lastKey = 38;
-    }
-    if(keys[40] && lastKey !== 38){
-      lastKey = 40;
+    }else{
+      if(keys[40] && lastKey !== 38){
+        lastKey = 40;
+      }
     }
     if(keys[82]){
       gameOver = true;
