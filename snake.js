@@ -13,7 +13,7 @@ var keys = [];
 var gameOver = false;
 var gameMode = "normal";
 var highScore = [0,0,0,0,0];
-var hack = 0;
+//var hack = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -40,13 +40,13 @@ function draw() {
   }
   background(0, 0, 0);
   if(gameOver === false){
-    hack ++;
+    /*hack ++;
     if(hack > 1000){
       snake.x.push(snake.x[snake.x.length-1]);
       snake.y.push(snake.y[snake.y.length-1]);
       snake.xV.push(0);
       snake.yV.push(0);
-    }
+    }*/
     noStroke();
     fill(255,0,0);
     rect(apple.x,apple.y,10,10);//apple
@@ -234,7 +234,7 @@ function keyPressed(){
 
 function keyReleased(){
   keys[keyCode] = false;
-  if(hack < 1000){
+  /*if(hack < 1000){
     hack = 0;
-  }
+  }*/
 }
