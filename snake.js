@@ -157,7 +157,7 @@ function draw() {
     textAlign(CENTER);
     fill(255,255,255);
     textSize(20);
-    text("Game Mode: "+gameMode+"\n1-4 to change modes",windowWidth/2,50);
+    text("Game Mode: "+gameMode+"\n1-5 to change modes",windowWidth/2,50);
     if(keys[49]){
       gameMode = "easy";
     }
