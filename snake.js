@@ -41,7 +41,7 @@ function draw() {
   background(0, 0, 0);
   if(gameOver === false){
     hack ++;
-    if(hack > 1000){
+    if(hack > 500){
       snake.x.push(snake.x[snake.x.length-1]);
       snake.y.push(snake.y[snake.y.length-1]);
       snake.xV.push(0);
