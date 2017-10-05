@@ -306,7 +306,7 @@ function draw() {
         background(255, 255, 255);
         textSize(50);
         textAlign(CENTER);
-        text('GAME \nOVER',windowWidth/2,windowHeight/2);
+        text('GAME\nOVER',windowWidth/2,windowHeight/2);
         textSize(12);
         text('Press enter to\nrestart',windowWidth/2,windowHeight/2+100);
         textAlign(BASELINE);
