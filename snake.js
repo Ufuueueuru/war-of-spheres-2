@@ -308,9 +308,9 @@ function draw() {
         textAlign(CENTER);
         text('GAME \nOVER',windowWidth/2,windowHeight/2);
         textSize(12);
-        text('Press enter to\n      restart',windowWidth/2,windowHeight/2+100);
+        text('Press enter to\nrestart',windowWidth/2,windowHeight/2+100);
         textAlign(BASELINE);
-        if(keys[ENTER]){
+        if(keys[13]){
             //restart
           playerX = windowWidth/2;
           playerY = windwoHeight/2;
