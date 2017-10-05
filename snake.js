@@ -1,240 +1,333 @@
-var apple = {//apple object
-  x: 0,
-  y: 0
-};
-var snake = {//snake object
-  x: [100],
-  y: [100],
-  xV: [10],
-  yV: [0]
-};
-var lastKey = 0;
+var playerX;
+var playerY;
+var playerL = 50;
+var playerLM = 50;
+var level = 1;//1
+var EXP = 0;
+var enemyX = [];
+var enemyY = [];
+var enemyL = [];
 var keys = [];
-var gameOver = false;
-var gameMode = "normal";
-var highScore = [0,0,0,0,0];
-//var hack = 0;
+var frame = 0;
+var wait = 500;//500
+var endGame = false;
+var defense = 0;//0
+var attack = 1;//1
+var randomKey = 16;
+var easterEgg = false;
+var speed = 1;
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  frameRate(15);
-  apple.x = floor(random(0,windowWidth)/10)*10-10;
-  apple.y = floor(random(0,windowHeight)/10)*10-10;
-}
+var drawEnemy = function(){
+  if(level > 49){
+      text("Press space to send bomb",230,70);
+  }
+  fill(0, 21, 255);
+  text('Army size: ' + enemyX.length,230,45);
+  if(wait <= 0){
+      text('Spawn speed: 500',230,55);
+  }else{
+      text('Spawn speed: ' + (500 - wait),230,55);
+  }
+  if(easterEgg === true){
+      fill(0, 0, 0);
+      text('The lag is REAL!!!!',145,390);
+  }
+  pop();
+    if(level > 14 && playerL < playerLM){
+        playerL += 1;
+    }
+    for(var t = 0;t < enemyY.length;t++){
+        if(level > 49 && keys[32] && EXP >= 5 && enemyX.length > 2 ){
+            enemyL[t] -= attack/15;
+            EXP -= 10;
+        }
+        if(level > 10 && enemyL[t] < 50){
+            enemyL[t] += 0.1;
+        }
+        if(level > 40 && enemyL[t] < 150){
+            enemyL[t] += 1;
+        }
+        if(enemyL[t] <= 0){
+            enemyX.splice(t,1);
+            enemyY.splice(t,1);
+            enemyL.splice(t,1);
+            EXP += 40;
+        }
+        fill(140, 255, 0);
+        rectMode(CENTER);
+        rect(enemyX[t],enemyY[t] + 15,enemyL[t]/2,10);
+        rectMode(CORNER);
+        fill(242, 78, 78);
+        ellipse(enemyX[t],enemyY[t],20,20);
+        /*if(enemyX[t] < playerX){
+            enemyX[t] += 0.1;
+            if(level > 15){
+                enemyX[t] += 0.4;
+            }
+        }
+        if(enemyX[t] > playerX){
+            enemyX[t] -= 0.1;
+            if(level > 15){
+                enemyX[t] -= 0.4;
+            }
+        }
+        if(enemyY[t] < playerY){
+            enemyY[t] += 0.1;
+            if(level > 15){
+                enemyY[t] += 0.4;
+            }
+        }
+        if(enemyY[t] > playerY){
+            enemyY[t] -= 0.1;
+            if(level > 15){
+                enemyY[t] -= 0.4;
+            }
+        }*/
+        enemyX[t] += playerX/500 - enemyX[t]/500;
+        enemyY[t] += playerY/500 - enemyY[t]/500;
+        if(level > 15){
+            enemyX[t] += playerX/500 - enemyX[t]/500;
+            enemyY[t] += playerY/500 - enemyY[t]/500;
+        }
+        if(level > 200){
+            wait = 0;
+        }
+        enemyX[t] = constrain(enemyX[t],10,windowWidth-10);
+        enemyY[t] = constrain(enemyY[t],10,windowHeight-10);
+        if(level > 30 && random(0,10000) < 1){
+            playerL -= 100;
+            fill(71, 9, 115);
+            ellipse(enemyX[t],enemyY[t],500,500);
+        }
+        if(dist(playerX,playerY,enemyX[t],enemyY[t]) < 200 && enemyX.length < random(50,100) && level > 20){
+            enemyX[t] -= playerX/100 - enemyX[t]/100;
+            enemyY[t] -= playerY/100 - enemyY[t]/100;
+            if(level > 15){
+                enemyX[t] -= playerX/100 - enemyX[t]/100;
+                enemyY[t] -= playerY/100 - enemyY[t]/100;
+            }
+            /*if(enemyX[t] > playerX){
+                enemyX[t] ++;
+                if(level > 15){
+                    enemyX[t] ++;
+                }
+            }
+            if(enemyX[t] < playerX){
+                enemyX[t] --;
+                if(level > 15){
+                    enemyX[t] --;
+                }
+            }
+            if(enemyY[t] > playerY){
+                enemyY[t] ++;
+                if(level > 15){
+                    enemyY[t] ++;
+                }
+            }
+            if(enemyY[t] < playerY){
+                enemyY[t] --;
+                if(level > 15){
+                    enemyY[t] --;
+                }
+            }*/
+        }
+        for(var q = 0;q < enemyY.length;q++){
+            if(dist(enemyX[q],enemyY[q],enemyX[t],enemyY[t]) <= 20){
+                enemyX[t] -= enemyX[q]/10 - enemyX[t]/10;
+                enemyY[t] -= enemyY[q]/10 - enemyY[t]/10;
+                if(level > 15){
+                    enemyX[t] -= enemyX[q]/10 - enemyX[t]/10;
+                    enemyY[t] -= enemyY[q]/10 - enemyY[t]/10;
+                }
+                /*if(enemyX[t] < enemyX[q]){
+                    enemyX[t] -= 2;
+                    enemyX[q] += 2;
+                }
+                if(enemyX[t] > enemyX[q]){
+                    enemyX[t] += 2;
+                    enemyX[q] -= 2;
+                }
+                if(enemyY[t] < enemyY[q]){
+                    enemyY[t] -= 2;
+                    enemyY[q] += 2;
+                }
+                if(enemyY[t] > enemyY[q]){
+                    enemyY[t] += 2;
+                    enemyY[q] -= 2;
+                }*/
+            }
+        }
+        if(enemyL.length < enemyX.length){//flux capacitor
+            enemyL.push(random(10,50));
+        }
+        if(isNaN(enemyX[t])){
+            enemyX[t] = random(10,windowWidth-10);
+        }
+        if(isNaN(enemyY[t])){
+            enemyY[t] = random(10,windowHeight-10);
+        }
+        if(dist(playerX,playerY,enemyX[t],enemyY[t]) <= 25){
+            if(playerL > 0){
+                playerL -= 15 - defense;
+                if(level > 50){
+                    playerL -= 30 - defense;
+                }
+            }
+            if(enemyL[t] > 0){
+                enemyL[t] -= attack;
+            }
+            /*
+            if(enemyX[t] < playerX){
+                enemyX[t] -= 5;
+                playerX += 5;
+            }
+            if(enemyX[t] > playerX){
+                enemyX[t] += 5;
+                playerX -= 5;
+            }
+            if(enemyY[t] < playerY){
+                enemyY[t] -= 5;
+                playerY += 5;
+            }
+            if(enemyY[t] > playerY){
+                enemyY[t] += 5;
+                playerY -= 5;
+            }*/
+            enemyX[t] -= playerX/5 - enemyX[t]/5;
+            enemyY[t] -= playerY/5 - enemyY[t]/5;
+            playerX -= enemyX[t]/5 - playerX/5;
+            playerY -= enemyY[t]/5 - playerY/5;
+        }
+    }
+    fill(242, 78, 78);
+};
 
-function draw() {
-  if(gameMode === "easy" && frameRate() !== 10){
-    frameRate(10);
-  }
-  if(gameMode === "normal" && frameRate() !== 15){
-    frameRate(15);
-  }
-  if(gameMode === "hard" && frameRate() !== 20){
-    frameRate(20);
-  }
-  if(gameMode === "INSANE" && frameRate() !== 60){
-    frameRate(60);
-  }
-  if(gameMode === "demented"){
-    frameRate(floor(random(10,150)));
-  }
-  background(0, 0, 0);
-  if(gameOver === false){
-    /*hack ++;
-    if(hack > 1000){
-      snake.x.push(snake.x[snake.x.length-1]);
-      snake.y.push(snake.y[snake.y.length-1]);
-      snake.xV.push(0);
-      snake.yV.push(0);
-    }*/
-    noStroke();
-    fill(255,0,0);
-    rect(apple.x,apple.y,10,10);//apple
-    fill(0,255,0);
-    for(var i = snake.x.length-1;i >= 0;i --){
-      rect(snake.x[i] + 4*(i/(snake.x.length)),snake.y[i] + 4*(i/(snake.x.length)),10 - 8*(i/(snake.x.length)),10 - 8*(i/(snake.x.length)));
-      snake.x[i] += snake.xV[i];
-      snake.y[i] += snake.yV[i];
-      if(i > 0){
-        snake.xV[i] = snake.xV[i-1];
-        snake.yV[i] = snake.yV[i-1];
-      }else{
-        for(var u = 0;u < snake.x.length;u ++){
-          if(snake.x[i] === snake.x[u] && snake.y[i] === snake.y[u] && i !== u){
-            gameOver = true;//die
-          }
-        }
-        if(snake.x[i] === apple.x && snake.y[i] === apple.y){
-          for(var t = 0;t < 3;t ++){
-            snake.x.push(snake.x[snake.x.length-1]);
-            snake.y.push(snake.y[snake.y.length-1]);
-            snake.xV.push(0);
-            snake.yV.push(0);
-          }
-          apple.x = floor(random(0,windowWidth)/10)*10-10;
-          apple.y = floor(random(0,windowHeight)/10)*10-10;
-        }
-      }
-      if(snake.x[i] > windowWidth-10){
-        snake.x[i] = 0;
-      }
-      if(snake.x[i] < 0){
-        snake.x[i] = floor(windowWidth/10)*10-10;
-      }
-      if(snake.y[i] > windowHeight-10){
-        snake.y[i] = 0;
-      }
-      if(snake.y[i] < 0){
-        snake.y[i] = floor(windowHeight/10)*10-10;
-      }
-    }
-    if(keys[39] && lastKey !== 37){
-      lastKey = 39;
-    }else{
-      if(keys[38] && lastKey !== 40){
-        lastKey = 38;
-      }else{
-        if(keys[37] && lastKey !== 39){
-          lastKey = 37;
-        }else{
-          if(keys[40] && lastKey !== 38){
-            lastKey = 40;
-          }
-        }
-      }
-    }
-    if(keys[82]){
-      gameOver = true;
-    }
-    if(lastKey === 39){//right
-      snake.xV[0] = 10;
-      snake.yV[0] = 0;
-    }
-    if(lastKey === 37){//left
-      snake.xV[0] = -10;
-      snake.yV[0] = 0;
-    }
-    if(lastKey === 38){//up
-      snake.xV[0] = 0;
-      snake.yV[0] = -10;
-    }
-    if(lastKey === 40){//down
-      snake.xV[0] = 0;
-      snake.yV[0] = 10;
-    }
-    fill(255,255,255);
-    if(gameMode === "easy"){
-      text("High score: "+highScore[0],windowWidth/2,100);
-      if(highScore[0] < snake.x.length){
-        highScore[0] = snake.x.length;
-      }
-    }
-    if(gameMode === "normal"){
-      text("High score: "+highScore[1],windowWidth/2,100);
-      if(highScore[1] < snake.x.length){
-        highScore[1] = snake.x.length;
-      }
-    }
-    if(gameMode === "hard"){
-      text("High score: "+highScore[2],windowWidth/2,100);
-      if(highScore[2] < snake.x.length){
-        highScore[2] = snake.x.length;
-      }
-    }
-    if(gameMode === "INSANE"){
-      fill(255,10,10);
-      text("High score: "+highScore[3],windowWidth/2,100);
-      if(highScore[3] < snake.x.length){
-        highScore[3] = snake.x.length;
-      }
-    }
-    if(gameMode === "demented"){
-      fill(255,10,10);
-      text("High score: "+highScore[4],windowWidth/2,100);
-      fill(255,50,140);
-      text("High score: "+highScore[4],windowWidth/2+3,103);
-      if(highScore[4] < snake.x.length){
-        highScore[4] = snake.x.length;
-      }
-    }
-    textSize(20);
-    fill(255,255,255);
-    textAlign(CENTER);
-    text("Score: "+snake.x.length,windowWidth/2,130);
-  }
-  if(gameOver === true){
-    textAlign(CENTER);
-    fill(255,255,255);
-    textSize(20);
-    text("Game Mode: "+gameMode+"\n1-5 to change modes",windowWidth/2,50);
-    if(keys[49]){
-      gameMode = "easy";
-    }
-    if(keys[50]){
-      gameMode = "normal";
-    }
-    if(keys[51]){
-      gameMode = "hard";
-    }
-    if(keys[52]){
-      gameMode = "INSANE";
-    }
-    if(keys[53]){
-      gameMode = "demented";
-    }
-    if(gameMode === "easy"){
-      text("High score: "+highScore[0],windowWidth/2,100);
-    }
-    if(gameMode === "normal"){
-      text("High score: "+highScore[1],windowWidth/2,100);
-    }
-    if(gameMode === "hard"){
-      text("High score: "+highScore[2],windowWidth/2,100);
-    }
-    if(gameMode === "INSANE"){
-      fill(255,10,10);
-      text("High score: "+highScore[3],windowWidth/2,100);
-    }
-    if(gameMode === "demented"){
-      fill(255,10,10);
-      text("High score: "+highScore[4],windowWidth/2,100);
-      fill(255,50,140);
-      text("High score: "+highScore[4],windowWidth/2+3,103);
-    }
-    fill(255,255,255);
-    text("Score: "+snake.x.length,windowWidth/2,130);
-    textSize(50);
-    text("Game\nOver",windowWidth/2,windowHeight/2-80);
-    textSize(30);
-    text("Press space\nto try again",windowWidth/2,windowHeight/2+100);
-    if(keys[32]){
-      gameOver = false;
-      lastKey = 0;
-      apple = {//apple object
-        x: floor(random(0,windowWidth)/10)*10,
-        y: floor(random(0,windowHeight)/10)*10
-      };
-      snake = {//snake object
-        x: [100],
-        y: [100],
-        xV: [10],
-        yV: [0]
-      };
-    }
-  }
-}
+function drawPlayer(){
+    fill(4, 0, 255);
+    ellipse(playerX,playerY,30,30);
+};
 
-function windowResized() {
+function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
 }
 
 function keyPressed(){
-  keys[keyCode] = true;
-}
+    keys[keyCode] = true;
+};
 
 function keyReleased(){
-  keys[keyCode] = false;
-  /*if(hack < 1000){
-    hack = 0;
-  }*/
+    keys[keyCode] = false;
+};
+
+
+function setup(){
+  createCanvas(windowWidth,windowHeight);
+  playerX = windowWidth/2;
+  playerY = windowHeight/2
 }
+
+function draw() {
+    if(endGame === false){
+    background(22, 184, 7);
+    if(keys[randomKey]){
+        EXP += level * 2;
+    }
+    /*println(enemyY[0]);
+    println(enemyX[0]);
+    println(enemyL[0]);*/
+    playerX = constrain(playerX,15,windowWidth-15);
+    playerY = constrain(playerY,15,windowHeight-15);
+    drawPlayer();
+    push();
+    scale(windowWidth/800);
+    fill(0, 0, 0);
+    text(EXP + ' / ' + level * 95 + ' exp',10,50);
+    text(round(playerL) + ' / ' + playerLM + ' life',120,50);
+    text('attack: ' + attack,230,15);
+    text('defense: ' + defense,230,25);
+    text('level: ' + level,230,35);
+    rect(10,10,100,20,5);
+    rect(120,10,100,20,5);
+    fill(255, 0, 0);
+    rect(123,12,(95/playerLM) * playerL,16,5);
+    fill(0, 13, 255);
+    rect(12,12,EXP / level,17,5);
+      
+    drawEnemy();
+    if(EXP >= level * 95){
+        level ++;
+        EXP = 0;
+        if(speed < 10){
+            speed += 0.2;
+        }
+        if(defense < 10){
+            defense += 1;
+        }
+        attack += 1;
+        playerLM += 30;
+        playerL += 30;
+    }
+    if(keys[38]){
+        playerY -= speed;
+    }
+    if(keys[39]){
+        playerX += speed;
+    }
+    if(keys[37]){
+        playerX -= speed;
+    }
+    if(keys[40]){
+        playerY += speed;
+    }
+    if(playerL < playerLM){
+        playerL += 0.5;
+    }
+    frameRate(10000);
+    if(easterEgg){
+        frameRate(random(1,1000));
+    }
+    if(frameCount - frame > wait && enemyX.length < 300){
+        frame = frameCount;
+        enemyX.push(random(0,400));
+        enemyY.push(random(0,400));
+        enemyL.push(random(10,50));
+        if(wait > 30){
+            wait -= 10;
+        }
+        if(wait < 0){
+            wait = 0;
+        }
+        EXP += floor(random(0,10));
+    }
+    if(playerL <= 0){
+        endGame = true;
+    }
+    }else{
+        background(255, 255, 255);
+        textSize(50);
+        text('GAME \nOVER',130,140);
+        textSize(12);
+        text('Press enter to\n      restart',170,220);
+        if(keys[ENTER]){
+            //restart
+          playerX = windowWidth/2;
+          playerY = windwoHeight/2;
+          playerL = 50;
+          playerLM = 50;
+          level = 1;//1
+          EXP = 0;
+          enemyX = [];
+          enemyY = [];
+          enemyL = [];
+          keys = [];
+          frame = 0;
+          wait = 500;//500
+          endGame = false;
+          defense = 0;//0
+          attack = 1;//1
+          randomKey = 16;
+          easterEgg = false;
+          speed = 1;
+        }
+    }
+};
