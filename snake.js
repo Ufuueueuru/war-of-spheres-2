@@ -288,8 +288,8 @@ function draw() {
     }
     if(frameCount - frame > wait && enemyX.length < 300){
         frame = frameCount;
-        enemyX.push(random(0,400));
-        enemyY.push(random(0,400));
+        enemyX.push(random(0,windowWidth));
+        enemyY.push(random(0,windowHeight));
         enemyL.push(random(10,50));
         if(wait > 30){
             wait -= 10;
