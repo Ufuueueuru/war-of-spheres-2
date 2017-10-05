@@ -305,9 +305,11 @@ function draw() {
     }else{
         background(255, 255, 255);
         textSize(50);
-        text('GAME \nOVER',130,140);
+        textAlign(CENTER);
+        text('GAME \nOVER',windowWidth/2,windowHeight/2);
         textSize(12);
-        text('Press enter to\n      restart',170,220);
+        text('Press enter to\n      restart',windowWidth/2,windowHeight/2+100);
+        textAlign(BASELINE);
         if(keys[ENTER]){
             //restart
           playerX = windowWidth/2;
