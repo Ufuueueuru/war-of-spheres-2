@@ -47,7 +47,7 @@ function drawEnemy(){
     text('The lag is REAL!!!!',145,390);
   }
   pop();
-  if(level > 14 && playerL < playerLM){
+  if(level > 34 && playerL < playerLM){
     playerL += 6;
   }
   for(var i = 0;i < target.length;i ++){
