@@ -54,7 +54,7 @@ function drawEnemy(){
     textSize(20);
     fill(255, 50, 90);
     text("Missile Deck:",10,110);
-    text("Missile "+target[i].target+" in use " +enemyY.length+" "+target[i].x+", "+target[i].y,10,130+30*i);//(i+1)
+    text("Missile "+(i+1)+" in use",10,130+30*i);//(i+1)
     textSize(12);
     fill(0, 100, 255);
     ellipse(target[i].x, target[i].y, 15, 15);
