@@ -230,7 +230,7 @@ function draw() {
       playerY = constrain(playerY,15,windowHeight-15);
       playerL = constrain(playerL,0,playerLM);
       push();
-      scale(((windowWidth+windowHeight)/2)/800);
+      scale(((windowWidth+windowHeight)/2)/450);
       noStroke();
       fill(0, 0, 0);
       text(EXP + ' / ' + level * 95 + ' exp',10,50);
