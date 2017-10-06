@@ -95,6 +95,7 @@ function drawEnemy(){
         if(enemyT[t] === 1){
           EXP += 80;
         }
+      }
     }
     fill(140, 255, 0);
     rectMode(CENTER);
