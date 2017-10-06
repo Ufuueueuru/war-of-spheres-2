@@ -31,7 +31,7 @@ function drawEnemy(){
   }
   if(level >= 50){
     text("Press space to use tracking missiles",230,70);
-    if(keys[32] && target.length === 0){
+    if(keys[32]){
       while(target.length < 10 && !(target.length >= enemyY.length) && EXP > 50){
         EXP -= 50;
         target.push({
@@ -48,13 +48,13 @@ function drawEnemy(){
   }
   pop();
   if(level > 14 && playerL < playerLM){
-    playerL += 13;
+    playerL += 6;
   }
   for(var i = 0;i < target.length;i ++){
     textSize(20);
     fill(255, 50, 90);
     text("Missile Deck:",10,110);
-    text("Missile "+i+" in use",10,130+30*i);
+    text("Missile "+(i+1)+" in use",10,130+30*i);
     textSize(12);
     fill(0, 100, 255);
     ellipse(target[i].x, target[i].y, 15, 15);
@@ -67,7 +67,7 @@ function drawEnemy(){
       enemyT.splice(target[i].target,1);
       target.splice(i,1);
     }
-    if(enemyY.length < 0){
+    if(enemyY.length - 1 === i){
       target.splice(i,1);
     }
   }
@@ -94,7 +94,7 @@ function drawEnemy(){
     }else{
       if(enemyT[t] === 1){
         fill(242, 242, 78);
-        playerL -= 0.1;
+        playerL -= 0.3;
         stroke(200 + 50*sin(frameCount/10), 242 + 50*sin(frameCount/10), 50 + 50*sin(frameCount/10),100);
         strokeWeight(10);
         line(enemyX[t],enemyY[t],playerX,playerY);
@@ -212,10 +212,11 @@ function draw() {
       }
       background(22, 184, 7);
       if(keys[randomKey]){
-        EXP += level * 40;
+        EXP += level * 2;
       }
       playerX = constrain(playerX,15,windowWidth-15);
       playerY = constrain(playerY,15,windowHeight-15);
+      playerL = constrain(playerL,0,playerLM);
       drawPlayer();
       push();
       scale(windowWidth/800);
@@ -271,7 +272,7 @@ function draw() {
         enemyY.push(random(0,windowHeight));
         enemyL.push(random(10,50));
         if(level >= 60){
-          if(random(0,100) < 10){
+          if(random(0,100) < 5){
           	enemyT.push(1);
           }else{
             enemyT.push(0);
