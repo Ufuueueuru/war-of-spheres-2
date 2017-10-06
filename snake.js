@@ -67,10 +67,10 @@ function drawEnemy(){
       enemyY.splice(target[i].target,1);
       enemyL.splice(target[i].target,1);
       enemyT.splice(target[i].target,1);
-      if(enemyT[t] === 0){
+      if(enemyT[target[i].target] === 0){
         EXP += 40;
       }else{
-        if(enemyT[t] === 1){
+        if(enemyT[target[i].target] === 1){
           EXP += 80;
         }
       }
