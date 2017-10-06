@@ -89,7 +89,12 @@ function drawEnemy(){
       enemyY.splice(t,1);
       enemyL.splice(t,1);
       enemyT.splice(t,1);
-      EXP += 40;
+      if(enemyT[t] === 0){
+        EXP += 40;
+      }else{
+        if(enemyT[t] === 1){
+          EXP += 80;
+        }
     }
     fill(140, 255, 0);
     rectMode(CENTER);
@@ -223,7 +228,6 @@ function draw() {
       playerX = constrain(playerX,15,windowWidth-15);
       playerY = constrain(playerY,15,windowHeight-15);
       playerL = constrain(playerL,0,playerLM);
-      drawPlayer();
       push();
       scale(windowWidth/800);
       noStroke();
@@ -240,6 +244,7 @@ function draw() {
       fill(0, 13, 255);
       rect(12,12,EXP / level,17,5);
       drawEnemy();
+      drawPlayer();
       if(EXP >= level * 95){
         level ++;
         EXP = 0;
