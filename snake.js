@@ -48,7 +48,7 @@ function drawEnemy(){
   }
   pop();
   if(level > 14 && playerL < playerLM){
-    playerL += 1;
+    playerL += 13;
   }
   for(var i = 0;i < target.length;i ++){
     textSize(20);
@@ -57,7 +57,7 @@ function drawEnemy(){
     text("Missile "+i+" in use",10,130+30*i);
     textSize(12);
     fill(0, 100, 255);
-    ellipse(target[i].x, target[i].y, 40, 40);
+    ellipse(target[i].x, target[i].y, 15, 15);
     target[i].x += enemyX[target[i].target]/25 - target[i].x/25;
     target[i].y += enemyY[target[i].target]/25 - target[i].y/25;
     if(dist(target[i].x, target[i].y, enemyX[target[i].target], enemyY[target[i].target]) <= 30){
