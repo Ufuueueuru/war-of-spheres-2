@@ -51,6 +51,7 @@ function drawEnemy(){
   if(level > 34 && playerL < playerLM){
     playerL += 6;
   }
+  drawPlayer();
   for(var i = 0;i < target.length;i ++){
     textSize(20);
     fill(255, 50, 90);
@@ -245,7 +246,6 @@ function draw() {
       fill(0, 13, 255);
       rect(12,12,EXP / level,17,5);
       drawEnemy();
-      drawPlayer();
       if(EXP >= level * 95){
         level ++;
         EXP = 0;
