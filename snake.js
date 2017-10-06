@@ -168,6 +168,7 @@ function drawEnemy(){
     }
     if(isNaN(enemyX[t])){
       enemyX[t] = random(10,windowWidth-10);
+      EXP += 40
     }
     if(isNaN(enemyY[t])){
       enemyY[t] = random(10,windowHeight-10);
