@@ -1,3 +1,4 @@
+//War of Spheres by Justin Wise
 var playerX;
 var playerY;
 var playerL = 50;
