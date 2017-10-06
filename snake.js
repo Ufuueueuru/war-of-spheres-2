@@ -63,10 +63,6 @@ function drawEnemy(){
     target[i].x += enemyX[target[i].target]/25 - target[i].x/25;
     target[i].y += enemyY[target[i].target]/25 - target[i].y/25;
     if(dist(target[i].x, target[i].y, enemyX[target[i].target], enemyY[target[i].target]) <= 30){
-      enemyX.splice(target[i].target,1);
-      enemyY.splice(target[i].target,1);
-      enemyL.splice(target[i].target,1);
-      enemyT.splice(target[i].target,1);
       if(enemyT[target[i].target] === 0){
         EXP += 40;
       }else{
@@ -74,6 +70,10 @@ function drawEnemy(){
           EXP += 80;
         }
       }
+      enemyX.splice(target[i].target,1);
+      enemyY.splice(target[i].target,1);
+      enemyL.splice(target[i].target,1);
+      enemyT.splice(target[i].target,1);
       target.splice(i,1);
     }else{
       if(enemyY.length === i){
@@ -93,10 +93,6 @@ function drawEnemy(){
       enemyL[t] += 1;
     }
     if(enemyL[t] <= 0){
-      enemyX.splice(t,1);
-      enemyY.splice(t,1);
-      enemyL.splice(t,1);
-      enemyT.splice(t,1);
       if(enemyT[t] === 0){
         EXP += 40;
       }else{
@@ -104,6 +100,10 @@ function drawEnemy(){
           EXP += 80;
         }
       }
+      enemyX.splice(t,1);
+      enemyY.splice(t,1);
+      enemyL.splice(t,1);
+      enemyT.splice(t,1);
     }
     fill(140, 255, 0);
     rectMode(CENTER);
