@@ -54,7 +54,7 @@ function drawEnemy(){
     textSize(20);
     fill(255, 50, 90);
     text("Missile Deck:",10,110);
-    text("Missile "+(i+1)+" in use",10,130+30*i);
+    text("Missile "+target[i].target+" in use " +enemyY.length+" "+target[i].x+", "+target[i].y,10,130+30*i);//(i+1)
     textSize(12);
     fill(0, 100, 255);
     ellipse(target[i].x, target[i].y, 15, 15);
@@ -66,9 +66,14 @@ function drawEnemy(){
       enemyL.splice(target[i].target,1);
       enemyT.splice(target[i].target,1);
       target.splice(i,1);
-    }
-    if(enemyY.length - 1 === i){
-      target.splice(i,1);
+    }else{
+      if(enemyY.length === i){
+        target.splice(i,1);
+      }else{
+        if(isNaN(target[i].x) || isNaN(target[i].y)){
+          target.splice(i,1);
+        }
+      }
     }
   }
   for(var t = 0;t < enemyY.length;t++){
