@@ -1,4 +1,48 @@
 //Alpha Version
+let keys = [];
+
+let player;
+
+let wait = 120;
+
+let shop;
+
+let menu = 0;
+
+let enemy = [];
+
+let back = [];
+
+class Shop {
+	constructor() {
+		
+	}
+	
+	draw() {
+		player.HUD.draw(player);
+		fill(0);
+		textSize(50);
+		text("Paused\nPress Space To Unpause", windowWidth/2, 100);
+		textSize(80);
+		text("Shop", windowWidth/2, 250);
+		textSize(30);
+		text(player.bag.gold + " Gold", windowWidth/2, 300);
+		
+		stroke(0);
+		noFill();
+		ellipse(windowWidth/2 + 200, 400, 130, 130);
+		ellipse(windowWidth/2, 400, 130, 130);
+		fill(0);
+		textSize(25);
+		text("Partner:\n" + player.weapon.level + " Gold", windowWidth/2, 400);
+		text("Bag:\n" + (player.bag.max-15) + " Gold", windowWidth/2 + 200, 400);
+		noStroke();
+		
+		if(keys[32]) {
+			menu = 0;
+		}
+	}
+}
 class Weapon {
 	constructor() {
 		this.x = 0;
@@ -98,37 +142,89 @@ class Background {
 		ellipse(this.x, this.y, 200, 200);
 	}
 }
-class Shop {
-	constructor() {
+class Enemy {
+	constructor(level) {
+		this.x = 0;
+		this.y = 0;
+		this.radius = 3*log(level)+15;
 		
+		this.level = level;
+		
+		this.speed = .6 + sigmoid(level);
+		this.health = this.level * 4 + 4;
+		this.attack = this.level * 4 - 1;
+		
+		this.multiplier = 1;
+	}
+	
+	follow(player) {
+		this.x += cos(atan2(player.y-this.y, player.x-this.x)) * this.speed;
+		this.y += sin(atan2(player.y-this.y, player.x-this.x)) * this.speed;
 	}
 	
 	draw() {
-		player.HUD.draw(player);
-		fill(0);
-		textSize(50);
-		text("Paused\nPress Space To Unpause", windowWidth/2, 100);
-		textSize(80);
-		text("Shop", windowWidth/2, 250);
-		textSize(30);
-		text(player.bag.gold + " Gold", windowWidth/2, 300);
-		
-		stroke(0);
-		noFill();
-		ellipse(windowWidth/2 + 200, 400, 130, 130);
-		ellipse(windowWidth/2, 400, 130, 130);
-		fill(0);
-		textSize(25);
-		text("Partner:\n" + player.weapon.level + " Gold", windowWidth/2, 400);
-		text("Bag:\n" + (player.bag.max-15) + " Gold", windowWidth/2 + 200, 400);
 		noStroke();
+		fill(255, 50, 50);
+		ellipse(this.x, this.y, this.radius);
+	}
+	
+	lifeBar() {
+		noStroke();
+		fill(140, 255, 0);
+		rect(this.x, this.y + this.radius/2 + 7, this.health * 50/this.healthu(), 10);
+	}
+	
+	damage(player) {
+		player.health -= max(this.attack - player.defense, 0);
+		this.health -= player.attack;
+		this.x -= cos(atan2(player.y-this.y, player.x-this.x)) * this.speed * 2;
+		this.y -= sin(atan2(player.y-this.y, player.x-this.x)) * this.speed * 2;
+		player.x += cos(atan2(player.y-this.y, player.x-this.x)) * player.speed * 2;
+		player.y += sin(atan2(player.y-this.y, player.x-this.x)) * player.speed * 2;
+		player.weapon.x += cos(atan2(-player.weapon.y+this.y, -player.weapon.x+this.x)) * player.speed * 3;
+		player.weapon.y += sin(atan2(-player.weapon.y+this.y, -player.weapon.x+this.x)) * player.speed * 3;
+	}
+	
+	updateStats() {
+		this.health = this.healthu(this.level);
 		
-		if(keys[32]) {
-			menu = 0;
+		this.attack = this.attacku(this.level);
+		
+		this.radius = this.radiusu(this.level);
+		
+		this.speed = this.speedu(this.level);
+	}
+	
+	healthu() {
+		return this.level * 6 + 4;
+	}
+	
+	attacku() {
+		return this.level * 3 - 1;
+	}
+	
+	radiusu() {
+		return 5*log(this.level)+10;
+	}
+	
+	speedu() {
+		return .6 + sigmoid(this.level);
+	}
+	
+	collide2(enemy) {
+		if(this.collide(enemy)) {
+			this.x += cos(atan2(this.y-enemy.y, this.x-enemy.x)) * this.speed;
+			this.y += sin(atan2(this.y-enemy.y, this.x-enemy.x)) * this.speed;
 		}
 	}
 	
-	
+	collide(player) {
+		if(dist(this.x, this.y, player.x, player.y) < player.radius/2 + this.radius/2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 class Brute extends Enemy {
 	constructor(level) {
@@ -275,90 +371,6 @@ class Fuser extends Enemy {
 	
 	healthu() {
 		return this.level * 6 + 4;
-	}
-}
-class Enemy {
-	constructor(level) {
-		this.x = 0;
-		this.y = 0;
-		this.radius = 3*log(level)+15;
-		
-		this.level = level;
-		
-		this.speed = .6 + sigmoid(level);
-		this.health = this.level * 4 + 4;
-		this.attack = this.level * 4 - 1;
-		
-		this.multiplier = 1;
-	}
-	
-	follow(player) {
-		this.x += cos(atan2(player.y-this.y, player.x-this.x)) * this.speed;
-		this.y += sin(atan2(player.y-this.y, player.x-this.x)) * this.speed;
-	}
-	
-	draw() {
-		noStroke();
-		fill(255, 50, 50);
-		ellipse(this.x, this.y, this.radius);
-	}
-	
-	lifeBar() {
-		noStroke();
-		fill(140, 255, 0);
-		rect(this.x, this.y + this.radius/2 + 7, this.health * 50/this.healthu(), 10);
-	}
-	
-	damage(player) {
-		player.health -= max(this.attack - player.defense, 0);
-		this.health -= player.attack;
-		this.x -= cos(atan2(player.y-this.y, player.x-this.x)) * this.speed * 2;
-		this.y -= sin(atan2(player.y-this.y, player.x-this.x)) * this.speed * 2;
-		player.x += cos(atan2(player.y-this.y, player.x-this.x)) * player.speed * 2;
-		player.y += sin(atan2(player.y-this.y, player.x-this.x)) * player.speed * 2;
-		player.weapon.x += cos(atan2(-player.weapon.y+this.y, -player.weapon.x+this.x)) * player.speed * 3;
-		player.weapon.y += sin(atan2(-player.weapon.y+this.y, -player.weapon.x+this.x)) * player.speed * 3;
-	}
-	
-	updateStats() {
-		this.health = this.healthu(this.level);
-		
-		this.attack = this.attacku(this.level);
-		
-		this.radius = this.radiusu(this.level);
-		
-		this.speed = this.speedu(this.level);
-	}
-	
-	healthu() {
-		return this.level * 6 + 4;
-	}
-	
-	attacku() {
-		return this.level * 3 - 1;
-	}
-	
-	radiusu() {
-		return 5*log(this.level)+10;
-	}
-	
-	speedu() {
-		return .6 + sigmoid(this.level);
-	}
-	
-	collide2(enemy) {
-		if(this.collide(enemy)) {
-			this.x += cos(atan2(this.y-enemy.y, this.x-enemy.x)) * this.speed;
-			this.y += sin(atan2(this.y-enemy.y, this.x-enemy.x)) * this.speed;
-		}
-	}
-	
-	collide(player) {
-		if(dist(this.x, this.y, player.x, player.y) < player.radius/2 + this.radius/2) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 }
 class HUD {
@@ -519,19 +531,6 @@ class Player {
 		this.weapon.draw(this);
 	}
 }
-let keys = [];
-
-let player;
-
-let wait = 120;
-
-let shop;
-
-let menu = 0;
-
-let enemy = [];
-
-let back = [];
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
